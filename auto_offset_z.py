@@ -61,12 +61,12 @@ class AutoOffsetZCalibration:
             raise config.error("AutoOffsetZ: No bltouch or probe in configured in your system - check your setup.")
 
         # check if qgl or ztilt is available
-        if config.has_section("quad_gantry_level"):
+        if self.ignore_alignment == True:
+            self.adjusttype = "ignore"
+        elif config.has_section("quad_gantry_level"):
             self.adjusttype = "qgl"
         elif config.has_section("z_tilt"):
             self.adjusttype = "ztilt"
-        elif self.ignore_alignment == 1:
-            self.adjusttype = "ignore"
         else:
             raise config.error("AutoOffsetZ: This can only be used if your config contains a section [quad_gantry_level] or [z_tilt].")
 
