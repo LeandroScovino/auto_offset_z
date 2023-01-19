@@ -30,6 +30,8 @@ class AutoOffsetZCalibration:
         self.offset_max = config.getfloat('offset_max', 1)
         self.endstop_min = config.getfloat('endstop_min', 0)
         self.endstop_max = config.getfloat('endstop_max', 0)
+        self.endstopswitch = config.getfloat('endstopswitch',0.5)
+
         self.gcode = self.printer.lookup_object('gcode')
         self.gcode_move = self.printer.lookup_object('gcode_move')
         self.gcode.register_command("AUTO_OFFSET_Z", self.cmd_AUTO_OFFSET_Z, desc=self.cmd_AUTO_OFFSET_Z_help)
@@ -60,13 +62,14 @@ class AutoOffsetZCalibration:
         else:
             raise config.error("AutoOffsetZ: No bltouch or probe in configured in your system - check your setup.")
 
+        
         # check if qgl or ztilt is available
-        if config.has_section("quad_gantry_level"):
+        if self.ignore_alignment == True:
+            self.adjusttype = "ignore"
+        elif config.has_section("quad_gantry_level"):
             self.adjusttype = "qgl"
         elif config.has_section("z_tilt"):
             self.adjusttype = "ztilt"
-        elif self.ignore_alignment == 1:
-            self.adjusttype = "ignore"
         else:
             raise config.error("AutoOffsetZ: This can only be used if your config contains a section [quad_gantry_level] or [z_tilt].")
 
@@ -144,10 +147,8 @@ class AutoOffsetZCalibration:
             toolhead.manual_move([None, None, self.z_hop], self.z_hop_speed)
 
         # calcualtion offset
-        endstopswitch = 0.5
         diffbedendstop = zendstop[2] - zbed[2]
-        #offset = (0 - diffbedendstop  + endstopswitch) + self.offsetadjust
-        offset = self.rounding((0 - diffbedendstop  + endstopswitch) + self.offsetadjust,3)
+        offset = self.rounding((0 - diffbedendstop  + self.endstopswitch) + self.offsetadjust,3)
 
         gcmd.respond_info("AutoOffsetZ:\nBed: %.3f\nEndstop: %.3f\nDiff: %.3f\nManual Adjust: %.3f\nTotal Calculated Offset: %.3f" % (zbed[2],zendstop[2],diffbedendstop,self.offsetadjust,offset,))
 
