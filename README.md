@@ -1,3 +1,5 @@
+## This is based in hawkeyexp work and modded for my printer.
+
 ## This is a Klipper plugin for an auto calibration Z offset with a BLTouch (or possible inductive probe - check hints first!)
 
 ## Why:<br>
@@ -55,28 +57,7 @@ offsetadjust: 0.0               # Manual offset correction option - start with z
 Login to your pi by ssh. Clone the repo to your homefolder with this command:
 
 <pre><code>
-git clone https://github.com/hawkeyexp/auto_offset_z.git<br>
+git clone https://github.com/LeandroScovino/auto_offset_z.git<br>
 cd ~/auto_offset_z<br>
 ./install.sh<br>
 </code></pre>
-
-For further updates you can add it to moonraker's updated manager:
-
-<pre><code>
-[update_manager auto_offset_z]
-type: git_repo
-path: ~/auto_offset_z
-origin: https://github.com/hawkeyexp/auto_offset_z.git
-install_script: install.sh
-</code></pre>
-
-## Hints for use with an inductive probe:
-
-in general an inductive probe should also work this way if it is able to detect the endstop pin but it is not tested and you have to
-ensure the probe is really detecting the endstop pin and not the bed surface which is possible really close to the pin.
-
-## Last words:
-
-I'm not a software developer, only a guy which is playing arround to solve his problems or needs :-)
-The code - i'm really sure - can be improved but it is running without problems for me now since some weeks.
-If you wan't to give it a try have fun but note: if something is going wrong i'm not responsible for it!
