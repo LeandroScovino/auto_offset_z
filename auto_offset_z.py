@@ -79,6 +79,9 @@ class AutoOffsetZCalibration:
         if abs(expoN) - abs(math.floor(expoN)) < 0.5:
             return math.floor(expoN) / 10 ** decimals
         return math.ceil(expoN) / 10 ** decimals
+    
+    def rmultiple(n,mult):
+        return mult*round(n/mult)
 
     def cmd_AUTO_OFFSET_Z(self, gcmd):
         # check if all axes are homed
@@ -148,7 +151,8 @@ class AutoOffsetZCalibration:
 
         # calcualtion offset
         diffbedendstop = zendstop[2] - zbed[2]
-        offset = self.rounding((0 - diffbedendstop  + self.endstopswitch) + self.offsetadjust,3)
+        trueoffset = self.rounding((0 - diffbedendstop  + self.endstopswitch) + self.offsetadjust,3)
+        offset = self.rmultiple(trueoffset,0.004)
 
         gcmd.respond_info("AutoOffsetZ:\nBed: %.3f\nEndstop: %.3f\nDiff: %.3f\nManual Adjust: %.3f\nTotal Calculated Offset: %.3f" % (zbed[2],zendstop[2],diffbedendstop,self.offsetadjust,offset,))
 
