@@ -31,7 +31,6 @@ class AutoOffsetZCalibration:
         self.endstop_min = config.getfloat('endstop_min', 0)
         self.endstop_max = config.getfloat('endstop_max', 0)
         self.endstopswitch = config.getfloat('endstopswitch',0.5)
-
         self.gcode = self.printer.lookup_object('gcode')
         self.gcode_move = self.printer.lookup_object('gcode_move')
         self.gcode.register_command("AUTO_OFFSET_Z", self.cmd_AUTO_OFFSET_Z, desc=self.cmd_AUTO_OFFSET_Z_help)
