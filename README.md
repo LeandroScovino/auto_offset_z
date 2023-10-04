@@ -38,19 +38,21 @@ Bed                                      _
 
 <pre><code>
 [auto_offset_z]
-center_xy_position:175,175      # Center of bed for example
-endstop_xy_position:233.5,358   # Physical endstop nozzle over pin
-speed: 100                      # X/Y travel speed between the two points
-z_hop: 10                       # Lift nozzle to this value after probing and for move
-z_hop_speed: 20                 # Hop speed of probe
+center_xy_position:135,135      # Center of bed for example
+endstop_xy_position:80,-15      # Physical endstop nozzle over pin
+speed: 150                      # X/Y travel speed between the two points
+z_hop: 6                        # Lift nozzle to this value after probing and for move
+z_hop_speed: 2                  # Hop speed of probe
 ignore_alignment: False         # Optional - this allows ignoring the presence of z-tilt or quad gantry leveling config section
-offset_min: -1                  # Optional - by default -1 is used - used as failsave to raise an error if offset is lower than this value
-offset_max: 1                   # Optional - by default 1 is used - used as failsave to raise an error if offset is higher than this value
+offset_min: -3                  # Optional - by default -1 is used - used as failsave to raise an error if offset is lower than this value
+offset_max: 3                   # Optional - by default 1 is used - used as failsave to raise an error if offset is higher than this value
 endstop_min: 0                  # Optional - by default disabled (0) - used as failsave to raise an error if endstop is lower than this value
 endstop_max: 0                  # Optional - by default disabled (0) - used as failsave to raise an error if endstop is higher than this value
-offsetadjust: 0.0               # Manual offset correction option - start with zero and optimize during print with babysteps
-                                  1) If you need to lower the nozzle from -0.71 to -0.92 for example your value is -0.21.
-                                  2) If you need to move more away from bed add a positive value.
+endstopswitch: 0                # swtich offset trigger (0.5)
+offsetadjust: -0.05             # Manual offset correction option - start with zero and optimize during print with babysteps
+                                #  1) If you need to lower the nozzle from -0.71 to -0.92 for example your value is -0.21.
+                                #  2) If you need to move more away from bed add a positive value.
+
 </code></pre>
 ## Installation:
 
